@@ -1,12 +1,13 @@
 module.exports = {
     "env": {
-        "node": true
+        "node": true,
+        "es6": true
     },
     "extends": "eslint:recommended",
     "rules": {
         "indent": [
             "error",
-            4
+            2
         ],
         "linebreak-style": [
             "error",
@@ -19,6 +20,7 @@ module.exports = {
         "semi": [
             "error",
             "always"
-        ]
+        ],
+        "no-undef":"error"
     }
 };
