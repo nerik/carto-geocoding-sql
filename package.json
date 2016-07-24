@@ -28,7 +28,7 @@
     "world-countries": "^1.7.8"
   },
   "bin": {
-    "carto-geocode": "bin/index.bin.js",
-    "geocode": "bin/index.bin.js"
+    "carto-geocode-sql": "bin/index.bin.js",
+    "geocode-sql": "bin/index.bin.js"
   }
 }
