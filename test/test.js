@@ -4,6 +4,7 @@ var geocode = require('../index');
 var country = require('../src/country');
 var prepareFragments = require('../src/prepareFragments');
 var SQLFunction = require('../src/SQLFunction');
+var transformFragments = require('../src/transformFragments');
 var SQL = require('../src/SQL');
 var expect = require('chai').expect;
 
@@ -86,19 +87,19 @@ describe('SQLFunction()', function() {
   });
 });
 
-// describe('transformFragments', function() {
-//   context('when 3 fragments are provided and SQL function is street level', function() {
-//     it('should remove provide null as state and use 3rd component as country', function() {
-//       expect(transformFragments(['Strada Dobrogea 28', 'Brașov', 'Romania'])).to.eql(['Strada Dobrogea 28', 'Brașov', null, 'Romania']);
-//     });
-//   });
-// });
+describe('transformFragments', function() {
+  context('when 3 fragments are provided and SQL function is street level', function() {
+    it('should remove provide null as state and use 3rd component as country', function() {
+      expect(transformFragments(['Strada Dobrogea 28', 'Brașov', 'Romania'], 'cdb_geocode_street_point')).to.eql(['Strada Dobrogea 28', 'Brașov', null, 'Romania']);
+    });
+  });
+});
 
 describe('SQL()', function() {
   it('should build an SQL query', function() {
-    expect(SQL(['Paris Blvd','Paris','Texas','USA'], 'cdb_geocode_street_point')).to.equal('SELECT cdb_geocode_street_point(\'Paris Blvd\',\'Paris\',\'Texas\',\'USA\');');
+    expect(SQL(['Paris Blvd','Paris','Texas','USA'], 'cdb_geocode_street_point')).to.equal('SELECT cdb_geocode_street_point(\'Paris Blvd\',\'Paris\',\'Texas\',\'USA\') the_geom;');
   });
   it('should build an SQL query with centroid when SQL function returns a polygon', function() {
-    expect(SQL(['Thailand'], 'cdb_geocode_admin0_polygon')).to.equal('SELECT ST_Centroid(cdb_geocode_admin0_polygon(\'Thailand\'));');
+    expect(SQL(['Thailand'], 'cdb_geocode_admin0_polygon')).to.equal('SELECT ST_Centroid(cdb_geocode_admin0_polygon(\'Thailand\')) the_geom;');
   });
 });
