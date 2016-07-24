@@ -6,7 +6,7 @@ module.exports = function (fragments, sqlFunction) {
   if (centroid) {
     sql = `ST_Centroid(${sql})`;
   }
-  sql = `SELECT ${sql};`;
+  sql = `SELECT ${sql} the_geom;`;
   return sql;
 };
 
