@@ -1,0 +1,27 @@
+{
+  "name": "carto-geocoding-sql",
+  "version": "0.0.0",
+  "description": "Turns simple text locations into SQL queries to be run against CARTO geocoding API",
+  "main": "index.js",
+  "scripts": {
+    "eslint": "eslint -c .eslintrc.js **/*.js",
+    "mocha": "mocha",
+    "mocha-watch": "mocha -w ",
+    "test": "npm run eslint && npm run mocha"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nerik/carto-geocoding-sql.git"
+  },
+  "author": "Erik Escoffier <erik.escoffier@gmail.com> (https://github.com/nerik/)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/nerik/carto-geocoding-sql/issues"
+  },
+  "homepage": "https://github.com/nerik/carto-geocoding-sql#readme",
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "eslint": "^3.1.1",
+    "mocha": "^2.5.3"
+  }
+}
