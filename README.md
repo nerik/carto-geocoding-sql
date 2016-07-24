@@ -1,7 +1,7 @@
 # carto-geocoding-sql
 Turns simple text locations into SQL queries ready to be run against CARTO [geocoding API](https://carto.com/docs/carto-engine/dataservices-api/geocoding-functions/).
 
-It'll decide which SQL function it should call depending on the content you provide.
+It'll \**magically*\*™ decide which SQL function it should call depending on the content you provide.
 
 ## Examples
 
