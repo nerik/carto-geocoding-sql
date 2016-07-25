@@ -15,7 +15,6 @@ module.exports = function() {
     return geocode(location);
   })
 
-  console.log(fragmentFunctionList)
   var sql = SQL(fragmentFunctionList);
   return sql;
 }
