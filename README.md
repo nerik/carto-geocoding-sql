@@ -30,7 +30,7 @@ geocodeSQL('75013, France');
 
 geocodeSQL('201 Moore St, Brooklyn, USA');
 geocodeSQL('201 Moore St, Brooklyn, NY, USA');
-// SELECT cdb_geocode_postalcode_point('75013','France') the_geom;
+// SELECT cdb_geocode_street_point('201 Moore St','Brooklyn','','USA') the_geom;
 // street level address with 3+ fragments, with or without state
 
 ```

@@ -19,6 +19,29 @@ describe('geocode()', function() {
       geocode(42);
     }).to.throw(/not a string/);
   });
+  /* eslint-disable quotes */
+  it('should work with a single fragment city', function() {
+    expect(geocode('Stockholm')).to.equal("SELECT cdb_geocode_namedplace_point('Stockholm') the_geom;");
+  });
+  it('should work with a country', function() {
+    expect(geocode('South Africa')).to.equal("SELECT ST_Centroid(cdb_geocode_admin0_polygon('South Africa')) the_geom;");
+  });
+  it('should work with an IP', function() {
+    expect(geocode('200.199.198.197')).to.equal("SELECT cdb_geocode_ipaddress_point('200.199.198.197') the_geom;");
+  });
+  it('should work with city, country pair', function() {
+    expect(geocode('Paris, USA')).to.equal("SELECT cdb_geocode_namedplace_point('Paris','USA') the_geom;");
+  });
+  it('should work with postal code, country pair', function() {
+    expect(geocode('75013, France')).to.equal("SELECT cdb_geocode_postalcode_point('75013','France') the_geom;");
+  });
+  it('should work with a 3 fragments street level query', function() {
+    expect(geocode('201 Moore St, Brooklyn, USA')).to.equal("SELECT cdb_geocode_street_point('201 Moore St','Brooklyn','','USA') the_geom;");
+  });
+  it('should work with a 4 fragments street level query', function() {
+    expect(geocode('201 Moore St, Brooklyn, NY, USA')).to.equal("SELECT cdb_geocode_street_point('201 Moore St','Brooklyn','NY','USA') the_geom;");
+  });
+  /* eslint-enable quotes */
 });
 
 describe('prepareFragments()', function() {
