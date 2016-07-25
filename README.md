@@ -3,7 +3,7 @@ Turns simple text locations into SQL queries ready to be run against CARTO [geoc
 
 It'll \**magically*\*™ decide which SQL function it should call depending on the content you provide.
 
-## Examples
+## show me some code
 
 ```
 var geocodeSQL = require('carto-geocoding-sql');
@@ -35,6 +35,15 @@ geocodeSQL('201 Moore St, Brooklyn, NY, USA');
 
 ```
 
+## multiple geocodings
+
+Send multiple strings if you need several geocodings at once:
+
+```
+geocodeSQL('Utrecht', '81.204.10.10', 'Roelof Hartplein 2G, Amsterdam, Nederland');
+//SELECT cdb_geocode_namedplace_point('Utrecht') the_geom UNION SELECT cdb_geocode_ipaddress_point('81.204.10.10') the_geom UNION SELECT cdb_geocode_street_point('Roelof Hartplein 2G','Amsterdam','','Nederland') the_geom;
+
+```
 
 ## CLI
 

@@ -41,6 +41,9 @@ describe('geocode()', function() {
   it('should work with a 4 fragments street level query', function() {
     expect(geocode('201 Moore St, Brooklyn, NY, USA')).to.equal("SELECT cdb_geocode_street_point('201 Moore St','Brooklyn','NY','USA') the_geom;");
   });
+  it('should work with multiple geocodes', function() {
+    expect(geocode('Utrecht', '81.204.10.10', 'Roelof Hartplein 2G, Amsterdam, Nederland')).to.equal("SELECT cdb_geocode_namedplace_point('Utrecht') the_geom UNION SELECT cdb_geocode_ipaddress_point('81.204.10.10') the_geom UNION SELECT cdb_geocode_street_point('Roelof Hartplein 2G','Amsterdam','','Nederland') the_geom;");
+  });
   /* eslint-enable quotes */
 });
 
@@ -120,9 +123,31 @@ describe('transformFragments', function() {
 
 describe('SQL()', function() {
   it('should build an SQL query', function() {
-    expect(SQL(['Paris Blvd','Paris','Texas','USA'], 'cdb_geocode_street_point')).to.equal('SELECT cdb_geocode_street_point(\'Paris Blvd\',\'Paris\',\'Texas\',\'USA\') the_geom;');
+    expect(SQL({
+      fragments: ['Paris Blvd','Paris','Texas','USA'],
+      sqlFunction: 'cdb_geocode_street_point'
+    })).to.equal('SELECT cdb_geocode_street_point(\'Paris Blvd\',\'Paris\',\'Texas\',\'USA\') the_geom;');
   });
   it('should build an SQL query with centroid when SQL function returns a polygon', function() {
-    expect(SQL(['Thailand'], 'cdb_geocode_admin0_polygon')).to.equal('SELECT ST_Centroid(cdb_geocode_admin0_polygon(\'Thailand\')) the_geom;');
+    expect(SQL({
+      fragments: ['Thailand'],
+      sqlFunction: 'cdb_geocode_admin0_polygon'
+    })).to.equal('SELECT ST_Centroid(cdb_geocode_admin0_polygon(\'Thailand\')) the_geom;');
+  });
+  it('should build an SQL query with multiple geocodes', function() {
+    expect(SQL([
+      {
+        fragments: ['Buenos Aires'],
+        sqlFunction: 'cdb_geocode_namedplace_point'
+      },
+      {
+        fragments: ['Córdoba','Argentina'],
+        sqlFunction: 'cdb_geocode_namedplace_point'
+      },
+      {
+        fragments: ['Argentina'],
+        sqlFunction: 'cdb_geocode_admin0_polygon'
+      }
+    ])).to.equal('SELECT cdb_geocode_namedplace_point(\'Buenos Aires\') the_geom UNION SELECT cdb_geocode_namedplace_point(\'Córdoba\',\'Argentina\') the_geom UNION SELECT ST_Centroid(cdb_geocode_admin0_polygon(\'Argentina\')) the_geom;');
   });
 });
