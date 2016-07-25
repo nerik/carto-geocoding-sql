@@ -9,8 +9,14 @@ module.exports = function() {
   if (arguments.length === 0) {
     throw new Error('no arguments');
   }
-
-  var locations = (arguments.length > 1) ? Array.prototype.slice.call(arguments) : [arguments[0]];
+  var locations;
+  if (arguments.length > 1) {
+    locations = Array.prototype.slice.call(arguments);
+  } else if (Array.isArray(arguments[0])) {
+    locations = arguments[0];
+  } else {
+    locations = [arguments[0]];
+  }
   var fragmentFunctionList = locations.map(function(location) {
     return geocode(location);
   })

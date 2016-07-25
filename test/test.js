@@ -44,6 +44,9 @@ describe('geocode()', function() {
   it('should work with multiple geocodes', function() {
     expect(geocode('Utrecht', '81.204.10.10', 'Roelof Hartplein 2G, Amsterdam, Nederland')).to.equal("SELECT cdb_geocode_namedplace_point('Utrecht') the_geom UNION SELECT cdb_geocode_ipaddress_point('81.204.10.10') the_geom UNION SELECT cdb_geocode_street_point('Roelof Hartplein 2G','Amsterdam','','Nederland') the_geom;");
   });
+  it('should work with multiple geocodes in an array', function() {
+    expect(geocode(['Utrecht', '81.204.10.10', 'Roelof Hartplein 2G, Amsterdam, Nederland'])).to.equal("SELECT cdb_geocode_namedplace_point('Utrecht') the_geom UNION SELECT cdb_geocode_ipaddress_point('81.204.10.10') the_geom UNION SELECT cdb_geocode_street_point('Roelof Hartplein 2G','Amsterdam','','Nederland') the_geom;");
+  });
   /* eslint-enable quotes */
 });
 
