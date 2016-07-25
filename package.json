@@ -1,6 +1,6 @@
 {
   "name": "carto-geocoding-sql",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "Turns simple text locations into SQL queries to be run against CARTO geocoding API",
   "main": "index.js",
   "scripts": {
