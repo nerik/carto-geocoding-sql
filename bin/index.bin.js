@@ -6,4 +6,4 @@ if (!process.argv[2] || process.argv[2] === '') {
   process.exit(1);
 }
 
-process.stdout.write(geocode(process.argv[2])+'\n');
+process.stdout.write(geocode(process.argv.slice(2))+'\n');
